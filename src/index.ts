@@ -1,9 +1,10 @@
 import AdminBro from 'admin-bro'
 import AdminBroExpress from '@admin-bro/express'
-import { Database, Resource } from '@admin-bro/typeorm';
 import express from 'express';
 import { createConnection } from 'typeorm';
+import { Database, Resource } from '@admin-bro/typeorm';
 import { Unit } from './entities/Unit';
+import { Piece } from './entities/Piece';
 
 AdminBro.registerAdapter({ Database, Resource });
 
@@ -16,7 +17,7 @@ async function init() {
       databases: [connection],
       rootPath: '/admin',
       resources: [
-        { resource: Unit, options: { navigation: { icon: 'Person' } } }
+        { resource: Unit, options: { navigation: { icon: 'Person' } } },
       ],
     })
 

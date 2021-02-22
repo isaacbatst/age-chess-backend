@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from "typeorm";
+import { Piece } from "./Piece";
 
 @Entity()
 export class Unit extends BaseEntity {
@@ -20,4 +21,7 @@ export class Unit extends BaseEntity {
 
     @Column()
     range!: number;
+
+    @OneToMany(() => Piece, piece => piece.unit)
+    pieces!: Piece[]
 }
