@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from "typeorm";
+import { ResourceOptions } from "admin-bro";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+
+export const options: ResourceOptions = { navigation: { icon: 'GameConsole' } };
 
 @Entity()
 export class GameType extends BaseEntity {
