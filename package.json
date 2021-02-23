@@ -7,16 +7,20 @@
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
   },
   "dependencies": {
+    "@admin-bro/design-system": "^1.7.2",
     "@admin-bro/express": "^3.1.0",
     "@admin-bro/typeorm": "^1.4.0",
     "@types/express": "^4.17.11",
     "@types/node": "^14.14.31",
+    "@types/styled-components": "^5.1.7",
     "admin-bro": "^3.4.0",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
     "express-session": "^1.17.1",
     "pg": "^8.5.1",
+    "react-hexgrid-with-context-api": "^1.0.2",
     "reflect-metadata": "^0.1.13",
+    "styled-components": "^5.2.1",
     "typeorm": "^0.2.31"
   },
   "devDependencies": {

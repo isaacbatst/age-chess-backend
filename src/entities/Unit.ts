@@ -6,7 +6,7 @@ import {
   BaseEntity,
   OneToMany,
 } from 'typeorm';
-import { Piece } from './Piece';
+import { Piece } from './Piece/Piece';
 
 export const options: ResourceOptions = { navigation: { icon: 'Person' } };
 

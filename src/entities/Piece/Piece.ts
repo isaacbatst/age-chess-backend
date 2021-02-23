@@ -1,4 +1,4 @@
-import { ResourceOptions } from 'admin-bro';
+import AdminBro, { ResourceOptions } from 'admin-bro';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,8 +8,8 @@ import {
   JoinColumn,
   RelationId,
 } from 'typeorm';
-import { Board } from './Board';
-import { Unit } from './Unit';
+import { Board } from '../Board/Board';
+import { Unit } from '../Unit';
 
 interface Coordinates {
   q: number;
@@ -19,7 +19,12 @@ interface Coordinates {
 
 export const options: ResourceOptions = {
   properties: {
-    coordinates: { type: 'mixed' },
+    coordinates: {
+      type: 'mixed',
+      components: {
+        edit: AdminBro.bundle('./Coordinates.tsx'),
+      },
+    },
     'coordinates.q': { type: 'number' },
     'coordinates.r': { type: 'number' },
     'coordinates.s': { type: 'number' },
