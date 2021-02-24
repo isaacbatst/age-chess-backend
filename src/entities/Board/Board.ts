@@ -18,7 +18,7 @@ export const options: ResourceOptions = {
     details: {
       type: 'mixed',
       components: {
-        edit: AdminBro.bundle('./BoardPreview.tsx'),
+        edit: AdminBro.bundle('./BoardDetails.tsx'),
       },
     },
     'details.format': {
@@ -45,7 +45,9 @@ export class Board extends BaseEntity {
   @Column()
   name!: string;
 
-  @Column('json')
+  @Column({
+    type: 'json', nullable: true
+  })
   details!: boardDetails;
 
   @OneToMany(() => Piece, (piece) => piece.board)
