@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Layout, Hexagon } from 'react-hexgrid-with-context-api';
 
-export const StyledBoardPreview = styled.div`
+export const StyledBoardDetails = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
