@@ -63,12 +63,12 @@ const BoardPreview = (props: BasePropertyComponentProps) => {
           </select>
         </div>
       </div>
-      <HexGrid width={sizeProps.width} height={sizeProps.height}>
+      <HexGrid width={config.width} height={config.height}>
         <StyledLayout
           size={sizeProps.layout}
           flat={layout.flat}
           spacing={layout.spacing}
-          origin={layout.origin}
+          origin={sizeProps.origin}
         >
           {hexagons.map((hex, i) => (
             <Hexagon key={sizeProps.mapProps + i} q={hex.q} r={hex.r} s={hex.s} />

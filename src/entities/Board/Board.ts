@@ -45,7 +45,9 @@ export class Board extends BaseEntity {
   @Column()
   name!: string;
 
-  @Column('json')
+  @Column({
+    type: 'json', nullable: true
+  })
   details!: boardDetails;
 
   @OneToMany(() => Piece, (piece) => piece.board)
