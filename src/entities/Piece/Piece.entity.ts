@@ -8,8 +8,8 @@ import {
   JoinColumn,
   RelationId,
 } from 'typeorm';
-import { Board } from '../Board/Board';
-import { Unit } from '../Unit';
+import { Board } from '../Board/Board.entity';
+import { Unit } from '../Unit.entity';
 
 interface Coordinates {
   q: number;

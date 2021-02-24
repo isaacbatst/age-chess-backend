@@ -1276,7 +1276,7 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
   integrity sha512-ewFXqrQHlFsgc09MK5jP5iR7vumV/BYayNC6PgJO2LPe8vrnNFyjQjSppfEngITi0qvfKtzFvgKymGheFM9UOA==
 
-"@types/react@*":
+"@types/react@*", "@types/react@^17.0.2":
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.2.tgz#3de24c4efef902dd9795a49c75f760cbe4f7a5a8"
   integrity sha512-Xt40xQsrkdvjn1EyWe1Bc0dJLcil/9x2vAuW7ya+PuQip4UYUaXyhzWmAbwRsdMgwOFHpfp7/FFZebDU6Y8VHA==
@@ -3198,10 +3198,10 @@ react-dom@=16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
-react-hexgrid-with-context-api@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-hexgrid-with-context-api/-/react-hexgrid-with-context-api-1.0.2.tgz#d8e1c4679e47cc627583b0239d4dcad794a92748"
-  integrity sha512-IxZMqZIhbMN/9i8qQNxQ3BsR7mQtLmbYz3tx2tKzxc4/naMMXOhvsi3w6ZDG3kvLuPUrf9VA0lIqg5zAWxt6KQ==
+react-hexgrid-with-context-api@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/react-hexgrid-with-context-api/-/react-hexgrid-with-context-api-1.0.9.tgz#32f20bf3609620b320653268c401de57a5805244"
+  integrity sha512-LSmtCaOwnO03UgQZmIM9NfkPUQR69ByzR7mtrcGxY4aDaikpZLhqF4sZHztL0+4u+WTQ43GuqN1AI1PGp5vYdQ==
   dependencies:
     classnames "^2.2.5"
 

@@ -1,15 +1,16 @@
+import { SyntheticEvent } from "react";
+import { BoardConfigs, BoardSizes, sizes } from "./configurations";
+
 interface BoardInputsProps {
-  changeFormat;
-  changeSize;
-  configs;
-  sizes;
+  changeFormat: (event: SyntheticEvent<HTMLSelectElement>) => void;
+  changeSize: (event: SyntheticEvent<HTMLSelectElement>) => void;
+  configs: BoardConfigs;
 }
 
 const BoardInputs = ({
   changeFormat,
   changeSize,
   configs,
-  sizes,
 }: BoardInputsProps) => (
   <div className="label-wrapper">
     <h2>Select grid type and configuration from dropdown.</h2>

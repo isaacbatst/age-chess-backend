@@ -1,43 +1,23 @@
-import { HexGrid, Hexagon } from 'react-hexgrid-with-context-api';
+import { HexGrid, Hexagon, Hex } from 'react-hexgrid-with-context-api';
 import { StyledLayout } from './styles';
+import { BoardConfig, BoardSizes } from './configurations';
 
-interface Origin {
-  x: number,
-  y: number
-}
-interface Layout {
-  x: number;
-  y: number;
-}
-
-interface GridLayout {
-  origin: Origin,
-  flat: boolean,
-  spacing: number
-}
-
-interface SizeProps {
-  mapProps: Number[];
-  width: Number;
-  height: Number;
-  layout: Layout
-}
 
 interface BoardPreviewProps {
-  sizeProps: SizeProps;
-  layout: GridLayout;
-  hexagons;
+  boardConfig: BoardConfig,
+  size: BoardSizes,
+  hexagons: Hex[];
 }
-const BoardPreview = ({ layout, sizeProps, hexagons }: BoardPreviewProps) => (
-  <HexGrid width={sizeProps.width} height={sizeProps.height}>
+const BoardPreview = ({ boardConfig: { layout, sizes }, size, hexagons }: BoardPreviewProps) => (
+  <HexGrid width={layout.width} height={layout.height} >
     <StyledLayout
-      size={sizeProps.layout}
+      size={sizes[size].layout}
       flat={layout.flat}
       spacing={layout.spacing}
-      origin={layout.origin}
+      origin={sizes[size].origin}
     >
       {hexagons.map((hex, i) => (
-        <Hexagon key={sizeProps.mapProps + i} q={hex.q} r={hex.r} s={hex.s} />
+        <Hexagon key={sizes[size].mapProps.push(1)} q={hex.q} r={hex.r} s={hex.s} />
       ))}
     </StyledLayout>
   </HexGrid>

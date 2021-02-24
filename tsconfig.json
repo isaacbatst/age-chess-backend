@@ -16,6 +16,7 @@
     "forceConsistentCasingInFileNames": true,  /* Disallow inconsistently-cased references to the same file. */
   },
   "include": [
-    "./decs.d.ts"
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
   ]
 }

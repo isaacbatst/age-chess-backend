@@ -1,19 +1,16 @@
 import { BasePropertyComponentProps } from 'admin-bro';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, SyntheticEvent } from 'react';
 import { GridGenerator } from 'react-hexgrid-with-context-api';
 import BoardInputs from './BoardInputs';
 import BoardPreview from './BoardPreview';
-import configs from './configurations';
+import configs, { BoardFormats, BoardSizes } from './configurations';
 import { StyledBoardDetails } from './styles';
 
 const initialConfig = configs['hexagon'];
 const generator = GridGenerator.getGenerator(initialConfig.map);
-const initalHexagons = generator.apply(
-  undefined,
-  initialConfig.sizes.medium.mapProps
-);
+const initalHexagons = generator(...initialConfig.sizes.medium.mapProps)
 
-const sizes = ['small', 'medium', 'large'];
+const sizes: BoardSizes[] = ['small', 'medium', 'large'];
 
 const BoardDetails = (props: BasePropertyComponentProps) => {
   const [hexagons, setHexagons] = useState(initalHexagons);
@@ -33,20 +30,20 @@ const BoardDetails = (props: BasePropertyComponentProps) => {
     setHexagons(hexagons);
   }
 
-  function changeFormat(event) {
-    const name = event.currentTarget.value;
+  function changeFormat(event: SyntheticEvent<HTMLSelectElement>) {
+    const name = event.currentTarget.value as BoardFormats;
     setConfig(configs[name]);
   }
 
-  function changeSize(event) {
-    const value = event.currentTarget.value;
+  function changeSize(event: SyntheticEvent<HTMLSelectElement>) {
+    const value = event.currentTarget.value as BoardSizes;
     setSelectedSize(value);
   }
 
   return (
     <StyledBoardDetails>
-      <BoardInputs changeFormat={changeFormat} changeSize={changeSize} sizes={sizes} configs={configs} />
-      <BoardPreview sizeProps={sizeProps} layout={layout} hexagons={hexagons} />
+      <BoardInputs changeFormat={changeFormat} changeSize={changeSize} configs={configs} />
+      <BoardPreview boardConfig={config} size={selectedSize} hexagons={hexagons} />
     </StyledBoardDetails>
   );
 };
