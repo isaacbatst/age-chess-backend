@@ -1,49 +1,104 @@
-import { BasePropertyComponentProps } from 'admin-bro';
-import React, { useState, useEffect, SyntheticEvent } from 'react';
-import { GridGenerator } from 'react-hexgrid-with-context-api';
+import { BasePropertyComponentProps, useRecord } from 'admin-bro';
+import React, { useState, useEffect, SyntheticEvent, useCallback } from 'react';
+import {
+  GridGenerator,
+  Hex,
+  generatorFunction,
+} from 'react-hexgrid-with-context-api';
 import BoardInputs from './BoardInputs';
 import BoardPreview from './BoardPreview';
-import configs, { BoardFormats, BoardSizes } from './configurations';
+import configs, {
+  BoardConfig,
+  BoardFormats,
+  BoardSize,
+} from './configurations';
 import { StyledBoardDetails } from './styles';
 
-const initialConfig = configs['hexagon'];
-const generator = GridGenerator.getGenerator(initialConfig.map);
-const initalHexagons = generator(...initialConfig.sizes.medium.mapProps)
+const initialFormat = 'hexagon';
+const initialSize = 'medium'
+const initialConfig = configs[initialFormat];
+const initialGenerator = GridGenerator.getGenerator(initialConfig.map);
+const initialHexagons = initialGenerator(
+  ...initialConfig.sizes[initialSize].mapProps
+);
 
-const sizes: BoardSizes[] = ['small', 'medium', 'large'];
+const sizes: BoardSize[] = ['small', 'medium', 'large'];
+
+interface BoardState {
+  hexagons: Hex[];
+  config: BoardConfig;
+  generator: generatorFunction,
+  size: BoardSize
+}
+
+const initialBoard: BoardState = {
+  hexagons: initialHexagons,
+  config: initialConfig,
+  generator: initialGenerator,
+  size: initialSize
+};
+
+interface UpdateBoardProps {
+  size?: BoardSize;
+  format?: BoardFormats;
+}
 
 const BoardDetails = (props: BasePropertyComponentProps) => {
-  const [hexagons, setHexagons] = useState(initalHexagons);
-  const [config, setConfig] = useState(initialConfig);
-  const [selectedSize, setSelectedSize] = useState(sizes[1]);
-  const layout = config.layout;
-  const sizeProps = config.sizes[selectedSize];
+  const [board, setBoard] = useState(initialBoard);
+  const { record: initialRecord, property } = props;
+  const { record, handleChange, submit } = useRecord(
+    initialRecord,
+    property.resourceId,
+    {
+      includeParams: ['details.size', 'details.format']
+    }
+  );
 
   useEffect(() => {
-    updateGrid();
-  }, [selectedSize, config]);
+    handleChange(`${property.propertyPath}.format`, board.config.map);
+    handleChange(`${property.propertyPath}.size`, board.size);
+  }, [])
+  function updateBoard({ format, size }: UpdateBoardProps) {
 
-  function updateGrid() {
-    const generator = GridGenerator.getGenerator(config.map);
-    const hexagons = generator.apply(undefined, sizeProps.mapProps);
+    const [newGenerator, newConfig] = format
+      ? [GridGenerator.getGenerator(format), configs[format]]
+      : [board.generator, board.config];
 
-    setHexagons(hexagons);
+    const newSize = size || board.size;
+    const newHexagons = newGenerator(...newConfig.sizes[newSize].mapProps)
+
+    setBoard({
+      config: newConfig,
+      hexagons: newHexagons,
+      generator: newGenerator,
+      size: newSize
+    });
   }
 
+  console.log(record)
+
   function changeFormat(event: SyntheticEvent<HTMLSelectElement>) {
-    const name = event.currentTarget.value as BoardFormats;
-    setConfig(configs[name]);
+    const format = event.currentTarget.value as BoardFormats;
+    updateBoard({ format });
   }
 
   function changeSize(event: SyntheticEvent<HTMLSelectElement>) {
-    const value = event.currentTarget.value as BoardSizes;
-    setSelectedSize(value);
+    const size = event.currentTarget.value as BoardSize;
+    updateBoard({ size });
   }
 
   return (
     <StyledBoardDetails>
-      <BoardInputs changeFormat={changeFormat} changeSize={changeSize} configs={configs} />
-      <BoardPreview boardConfig={config} size={selectedSize} hexagons={hexagons} />
+      <BoardInputs
+        changeFormat={changeFormat}
+        changeSize={changeSize}
+        configs={configs}
+      />
+      <BoardPreview
+        boardConfig={board.config}
+        size={board.size}
+        hexagons={board.hexagons}
+      />
     </StyledBoardDetails>
   );
 };

@@ -1,5 +1,5 @@
 import { SyntheticEvent } from "react";
-import { BoardConfigs, BoardSizes, sizes } from "./configurations";
+import { BoardConfigs, BoardSize, sizes } from "./configurations";
 
 interface BoardInputsProps {
   changeFormat: (event: SyntheticEvent<HTMLSelectElement>) => void;

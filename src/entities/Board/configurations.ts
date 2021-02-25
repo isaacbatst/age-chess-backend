@@ -81,7 +81,7 @@ const formats = ['hexagon', 'rectangle'] as const;
 export type BoardFormats = typeof formats[number];
 
 export const sizes = ['small', 'medium', 'large'] as const;
-export type BoardSizes = typeof sizes[number];
+export type BoardSize = typeof sizes[number];
 
 export interface BoardConfig {
   layout: BoardLayout,

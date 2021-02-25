@@ -1,11 +1,11 @@
 import { HexGrid, Hexagon, Hex } from 'react-hexgrid-with-context-api';
 import { StyledLayout } from './styles';
-import { BoardConfig, BoardSizes } from './configurations';
+import { BoardConfig, BoardSize } from './configurations';
 
 
 interface BoardPreviewProps {
   boardConfig: BoardConfig,
-  size: BoardSizes,
+  size: BoardSize,
   hexagons: Hex[];
 }
 const BoardPreview = ({ boardConfig: { layout, sizes }, size, hexagons }: BoardPreviewProps) => (
@@ -17,7 +17,7 @@ const BoardPreview = ({ boardConfig: { layout, sizes }, size, hexagons }: BoardP
       origin={sizes[size].origin}
     >
       {hexagons.map((hex, i) => (
-        <Hexagon key={sizes[size].mapProps.push(1)} q={hex.q} r={hex.r} s={hex.s} />
+        <Hexagon key={Number(...sizes[size].mapProps, 1) + i} q={hex.q} r={hex.r} s={hex.s} />
       ))}
     </StyledLayout>
   </HexGrid>
