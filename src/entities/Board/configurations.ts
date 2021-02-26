@@ -53,7 +53,7 @@ const configurations: BoardConfigs = {
 
 export default configurations;
 
-interface XYCoordinates {
+export interface Point {
   x: number;
   y: number;
 }
@@ -67,8 +67,8 @@ interface BoardLayout {
 
 interface SizeDetails {
   mapProps: number[];
-  layout: XYCoordinates
-  origin: XYCoordinates,
+  layout: Point
+  origin: Point,
 }
 
 interface BoardSizesDetails {

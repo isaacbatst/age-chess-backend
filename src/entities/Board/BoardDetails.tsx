@@ -11,6 +11,7 @@ import configs, {
   BoardConfig,
   BoardFormats,
   BoardSize,
+  Point,
 } from './configurations';
 import { StyledBoardDetails } from './styles';
 
@@ -45,21 +46,24 @@ interface UpdateBoardProps {
 
 const BoardDetails = (props: BasePropertyComponentProps) => {
   const [board, setBoard] = useState(initialBoard);
-  const { record: initialRecord, property } = props;
-  const { record, handleChange, submit } = useRecord(
-    initialRecord,
-    property.resourceId,
-    {
-      includeParams: ['details.size', 'details.format']
-    }
-  );
+  const { property, onChange, where, record } = props;
+
+  const isShowing = where === 'list' || where === 'show';
 
   useEffect(() => {
-    handleChange(`${property.propertyPath}.format`, board.config.map);
-    handleChange(`${property.propertyPath}.size`, board.size);
+    if (isShowing) {
+      updateBoard({ size: record?.params['details.size'], format: record?.params['details.format'] })
+    }
   }, [])
-  function updateBoard({ format, size }: UpdateBoardProps) {
 
+  useEffect(() => {
+    if (onChange) {
+      onChange(`${property.propertyPath}.format`, board.config.map)
+      onChange(`${property.propertyPath}.size`, board.size);
+    }
+  }, [board])
+
+  function updateBoard({ format, size }: UpdateBoardProps) {
     const [newGenerator, newConfig] = format
       ? [GridGenerator.getGenerator(format), configs[format]]
       : [board.generator, board.config];
@@ -75,8 +79,6 @@ const BoardDetails = (props: BasePropertyComponentProps) => {
     });
   }
 
-  console.log(record)
-
   function changeFormat(event: SyntheticEvent<HTMLSelectElement>) {
     const format = event.currentTarget.value as BoardFormats;
     updateBoard({ format });
@@ -87,16 +89,39 @@ const BoardDetails = (props: BasePropertyComponentProps) => {
     updateBoard({ size });
   }
 
+  const layoutSize = board.config.sizes[board.size].layout;
+  const layoutSizeConsideringAction = Object.entries(layoutSize)
+    .reduce((acc, [key, value]) => ({
+      ...acc,
+      [key]: isShowing ? value / 1.5 : value
+    }), {})
+
+  const { config } = board;
+  const configConsideringAction: BoardConfig = {
+    ...config,
+    layout: {
+      ...config.layout,
+      width: isShowing ? config.layout.width / 3 : config.layout.width,
+      height: isShowing ? config.layout.height / 3: config.layout.height,
+    }
+  }
+
   return (
     <StyledBoardDetails>
       <BoardInputs
         changeFormat={changeFormat}
         changeSize={changeSize}
         configs={configs}
+        isShowing={isShowing}
+        details={{
+          format: record?.params['details.format'],
+          size: record?.params['details.size'],
+        }}
       />
       <BoardPreview
-        boardConfig={board.config}
+        boardConfig={configConsideringAction}
         size={board.size}
+        layoutSize={layoutSizeConsideringAction as Point}
         hexagons={board.hexagons}
       />
     </StyledBoardDetails>

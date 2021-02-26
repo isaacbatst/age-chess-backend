@@ -7,18 +7,21 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Piece } from '../Piece/Piece.entity';
-enum boardFormat {
-  HEXAGON = 'Hexagon',
-  RECTANGLE = 'Rectangle',
-}
 
 export const options: ResourceOptions = {
   navigation: { icon: 'Development' },
+  actions: {
+    new: {
+      component: AdminBro.bundle('./BoardNewAction.tsx'),
+    }
+  },
   properties: {
     details: {
       type: 'mixed',
       components: {
         edit: AdminBro.bundle('./BoardDetails.tsx'),
+        list: AdminBro.bundle('./BoardDetails.tsx'),
+        show: AdminBro.bundle('./BoardDetails.tsx'),
       },
     },
     'details.format': {
@@ -28,13 +31,31 @@ export const options: ResourceOptions = {
         { value: 'rectangle', label: 'Rectangle' }
       ],
     },
-    'details.size': { type: 'number' },
+    'details.size': {
+      type: 'string',
+      availableValues: [
+        { value: 'small', label: 'small' },
+        { value: 'medium', label: 'medium' },
+        { value: 'large', label: 'large' }
+      ],
+    },
   },
 };
 
-interface boardDetails {
+enum boardFormat {
+  hexagon = 'Hexagon',
+  rectangle = 'Rectangle',
+}
+
+enum boardSize {
+  small = 'small',
+  medium = 'medium',
+  large = 'large'
+}
+
+export interface boardDetails {
   format: boardFormat;
-  size: number;
+  size: boardSize;
 }
 
 @Entity()

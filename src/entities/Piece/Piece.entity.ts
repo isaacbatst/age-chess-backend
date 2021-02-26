@@ -54,6 +54,9 @@ export class Piece extends BaseEntity {
   @RelationId((piece: Piece) => piece.board)
   boardId!: number;
 
-  @Column('json')
+  @Column({
+    type: 'json',
+    nullable: true
+  })
   coordinates!: Coordinates;
 }
