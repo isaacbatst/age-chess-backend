@@ -1,8 +1,9 @@
-import { BasePropertyComponentProps } from "admin-bro"
+import React from 'react'
+import { BasePropertyComponentProps } from 'admin-bro'
 
-const Coordinates = (props: BasePropertyComponentProps) => {
-  const { property, record }  = props;
-
+const Coordinates: React.FC<BasePropertyComponentProps> = (
+  props: BasePropertyComponentProps
+) => {
   console.log(props)
 
   return <input />

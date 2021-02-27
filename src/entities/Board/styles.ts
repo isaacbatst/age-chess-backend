@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Layout } from 'react-hexgrid-with-context-api';
+import styled from 'styled-components'
+import { Layout } from 'react-hexgrid-with-context-api'
 
 export const StyledLayout = styled(Layout)`
   g {
@@ -26,4 +26,4 @@ export const StyledLayout = styled(Layout)`
     stroke-linecap: round;
     stroke-linejoin: round;
   }
-`;
+`

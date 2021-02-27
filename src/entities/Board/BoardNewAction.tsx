@@ -1,31 +1,31 @@
+import React, { SyntheticEvent } from 'react'
 import { Box, Button } from '@admin-bro/design-system'
-import { ActionProps, BasePropertyComponent, useRecord, ViewHelpers } from 'admin-bro'
-import { Console } from 'console'
-import { SyntheticEvent } from 'react'
+import {
+  ActionProps,
+  BasePropertyComponent,
+  useRecord,
+  ViewHelpers,
+} from 'admin-bro'
+
 import { useHistory } from 'react-router-dom'
 
-const MyRecordActionComponent = (props: ActionProps) => {
-  const { record: initialRecord, resource, action } = props
+const MyRecordActionComponent: React.FC<ActionProps> = (props: ActionProps) => {
+  const { record: initialRecord, resource } = props
 
-  const { record, handleChange, submit, isSynced } = useRecord(initialRecord, resource.id) 
-  let history = useHistory();
+  const { record, handleChange, submit } = useRecord(initialRecord, resource.id)
+  const history = useHistory()
 
   const handleSubmit = (event: SyntheticEvent) => {
-    event.preventDefault();
-    console.log(record)
+    event.preventDefault()
     submit().then(() => {
-      const helper = new ViewHelpers();
-      const resourceUrl = helper.resourceUrl({ resourceId: 'Board' });
+      const helper = new ViewHelpers()
+      const resourceUrl = helper.resourceUrl({ resourceId: 'Board' })
       history.push(resourceUrl)
     })
   }
-  console.log(record, isSynced)
 
   return (
-    <Box
-      as="form"
-      onSubmit={handleSubmit}
-    >
+    <Box as="form" onSubmit={handleSubmit}>
       <BasePropertyComponent
         where="edit"
         onChange={handleChange}

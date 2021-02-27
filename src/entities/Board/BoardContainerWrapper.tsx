@@ -1,11 +1,10 @@
-import { ComponentProps } from "react";
+import React, { ComponentProps } from 'react'
 
 interface BoardContainerWrapperProps extends ComponentProps<'div'> {
-  isShowing: boolean,
+  isShowing: boolean
 }
 
-export const BoardContainerWrapper = ({ children, className }: BoardContainerWrapperProps) => (
-  <div className={className}>
-    { children }
-  </div>
-)
+export const BoardContainerWrapper: React.FC<BoardContainerWrapperProps> = ({
+  children,
+  className,
+}: BoardContainerWrapperProps) => <div className={className}>{children}</div>

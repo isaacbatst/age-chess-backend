@@ -1,35 +1,35 @@
-import { ResourceOptions } from 'admin-bro';
+import { ResourceOptions } from 'admin-bro'
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   BaseEntity,
   OneToMany,
-} from 'typeorm';
-import { Piece } from './Piece/Piece.entity';
+} from 'typeorm'
+import { Piece } from './Piece/Piece.entity'
 
-export const options: ResourceOptions = { navigation: { icon: 'Person' } };
+export const options: ResourceOptions = { navigation: { icon: 'Person' } }
 
 @Entity()
 export class Unit extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id!: number;
+  id!: number
 
   @Column()
-  name!: string;
+  name!: string
 
   @Column()
-  move!: number;
+  move!: number
 
   @Column()
-  icon!: string;
+  icon!: string
 
   @Column()
-  type!: string;
+  type!: string
 
   @Column()
-  range!: number;
+  range!: number
 
   @OneToMany(() => Piece, (piece) => piece.unit)
-  pieces!: Piece[];
+  pieces!: Piece[]
 }

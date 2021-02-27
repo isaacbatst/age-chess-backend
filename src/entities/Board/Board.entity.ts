@@ -1,19 +1,19 @@
-import AdminBro, { ResourceOptions } from 'admin-bro';
+import AdminBro, { ResourceOptions } from 'admin-bro'
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   BaseEntity,
   OneToMany,
-} from 'typeorm';
-import { Piece } from '../Piece/Piece.entity';
+} from 'typeorm'
+import { Piece } from '../Piece/Piece.entity'
 
 export const options: ResourceOptions = {
   navigation: { icon: 'Development' },
   actions: {
     new: {
       component: AdminBro.bundle('./BoardNewAction.tsx'),
-    }
+    },
   },
   properties: {
     details: {
@@ -28,7 +28,7 @@ export const options: ResourceOptions = {
       type: 'string',
       availableValues: [
         { value: 'hexagon', label: 'Hexagon' },
-        { value: 'rectangle', label: 'Rectangle' }
+        { value: 'rectangle', label: 'Rectangle' },
       ],
     },
     'details.size': {
@@ -36,11 +36,11 @@ export const options: ResourceOptions = {
       availableValues: [
         { value: 'small', label: 'small' },
         { value: 'medium', label: 'medium' },
-        { value: 'large', label: 'large' }
+        { value: 'large', label: 'large' },
       ],
     },
   },
-};
+}
 
 enum boardFormat {
   hexagon = 'Hexagon',
@@ -50,27 +50,28 @@ enum boardFormat {
 enum boardSize {
   small = 'small',
   medium = 'medium',
-  large = 'large'
+  large = 'large',
 }
 
 export interface boardDetails {
-  format: boardFormat;
-  size: boardSize;
+  format: boardFormat
+  size: boardSize
 }
 
 @Entity()
 export class Board extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id!: number;
+  id!: number
 
   @Column()
-  name!: string;
+  name!: string
 
   @Column({
-    type: 'json', nullable: true
+    type: 'json',
+    nullable: true,
   })
-  details!: boardDetails;
+  details!: boardDetails
 
   @OneToMany(() => Piece, (piece) => piece.board)
-  pieces!: Piece[];
+  pieces!: Piece[]
 }

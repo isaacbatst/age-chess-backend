@@ -1,9 +1,11 @@
-import { GridGenerator } from "react-hexgrid-with-context-api";
+import { GridGenerator } from 'react-hexgrid-with-context-api'
 
 const configurations: BoardConfigs = {
   hexagon: {
     layout: {
-      flat: false, spacing: 1, width: 500,
+      flat: false,
+      spacing: 1,
+      width: 500,
       height: 400,
     },
     map: 'hexagon',
@@ -51,55 +53,55 @@ const configurations: BoardConfigs = {
       },
     },
   },
-};
+}
 
-export default configurations;
+export default configurations
 
 export interface Point {
-  x: number;
-  y: number;
+  x: number
+  y: number
 }
 
 export interface BoardLayout {
-  flat: boolean,
+  flat: boolean
   spacing: number
-  width: number;
-  height: number;
+  width: number
+  height: number
 }
 
 export interface SizeDetails {
-  mapProps: number[];
+  mapProps: number[]
   layout: Point
-  origin: Point,
+  origin: Point
 }
 
 interface BoardSizesDetails {
-  small: SizeDetails,
-  medium: SizeDetails,
+  small: SizeDetails
+  medium: SizeDetails
   large: SizeDetails
 }
 
-const formats = ['hexagon', 'rectangle'] as const;
-export type BoardFormat = typeof formats[number];
+const formats = ['hexagon', 'rectangle'] as const
+export type BoardFormat = typeof formats[number]
 
-export const sizes = ['small', 'medium', 'large'] as const;
-export type BoardSize = typeof sizes[number];
+export const sizes = ['small', 'medium', 'large'] as const
+export type BoardSize = typeof sizes[number]
 
 export interface BoardConfig {
-  layout: BoardLayout,
-  map: BoardFormat,
+  layout: BoardLayout
+  map: BoardFormat
   sizes: BoardSizesDetails
 }
 
 export interface BoardConfigs {
-  hexagon: BoardConfig,
+  hexagon: BoardConfig
   rectangle: BoardConfig
 }
 
 export const initialSize = 'medium'
-export const initialFormat = 'hexagon';
-export const initialConfig = configurations[initialFormat];
-export const initialGenerator = GridGenerator.getGenerator(initialConfig.map);
+export const initialFormat = 'hexagon'
+export const initialConfig = configurations[initialFormat]
+export const initialGenerator = GridGenerator.getGenerator(initialConfig.map)
 export const initialHexagons = initialGenerator(
   ...initialConfig.sizes[initialSize].mapProps
-);
+)

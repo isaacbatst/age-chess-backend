@@ -1,4 +1,4 @@
-import AdminBro, { ResourceOptions } from 'admin-bro';
+import AdminBro, { ResourceOptions } from 'admin-bro'
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -7,14 +7,14 @@ import {
   ManyToOne,
   JoinColumn,
   RelationId,
-} from 'typeorm';
-import { Board } from '../Board/Board.entity';
-import { Unit } from '../Unit.entity';
+} from 'typeorm'
+import { Board } from '../Board/Board.entity'
+import { Unit } from '../Unit.entity'
 
 interface Coordinates {
-  q: number;
-  r: number;
-  s: number;
+  q: number
+  r: number
+  s: number
 }
 
 export const options: ResourceOptions = {
@@ -30,33 +30,33 @@ export const options: ResourceOptions = {
     'coordinates.s': { type: 'number' },
   },
   navigation: { icon: 'Gamification' },
-};
+}
 
 @Entity()
 export class Piece extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id!: number;
+  id!: number
 
   @Column()
-  name!: string;
+  name!: string
 
   @ManyToOne(() => Unit, (unit) => unit.pieces)
   @JoinColumn({ name: 'unitId' })
-  unit!: Unit;
+  unit!: Unit
 
   @Column('int')
-  unitId!: number;
+  unitId!: number
 
   @ManyToOne(() => Board, (board) => board.pieces)
   @JoinColumn({ name: 'boardId' })
-  board!: Board;
+  board!: Board
 
   @RelationId((piece: Piece) => piece.board)
-  boardId!: number;
+  boardId!: number
 
   @Column({
     type: 'json',
-    nullable: true
+    nullable: true,
   })
-  coordinates!: Coordinates;
+  coordinates!: Coordinates
 }
