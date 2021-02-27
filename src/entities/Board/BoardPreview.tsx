@@ -1,25 +1,39 @@
 import { HexGrid, Hexagon, Hex } from 'react-hexgrid-with-context-api';
 import { StyledLayout } from './styles';
-import { BoardConfig, BoardSize, Point } from './configurations';
+import { BoardConfig, BoardLayout, BoardSize, Point, SizeDetails } from './configurations';
 
 
 interface BoardPreviewProps {
-  boardConfig: BoardConfig,
-  size: BoardSize,
-  hexagons: Hex[];
-  layoutSize: Point
+  sizeDetails: SizeDetails,
+  hexagons: Hex[],
+  layout: BoardLayout,
+  isShowing: boolean
 }
-const BoardPreview = ({ boardConfig: { layout, sizes }, size, hexagons, layoutSize }: BoardPreviewProps) => {
+const BoardPreview = ({ layout, sizeDetails, hexagons, isShowing }: BoardPreviewProps) => {
+
+  const layoutSize: Point = sizeDetails.layout;
+  const layoutSizeConsideringAction = Object.entries(layoutSize)
+    .reduce((acc, [key, value]) => ({
+      ...acc,
+      [key]: isShowing ? value / 1.3 : value
+    }), {})
+
+  const { flat, spacing, width, height }: BoardLayout = {
+    ...layout,
+    width: isShowing ? layout.width / 5 : layout.width,
+    height: isShowing ? layout.height / 5 : layout.height,
+  }
+
   return (
-    <HexGrid width={layout.width} height={layout.height} >
+    <HexGrid width={width} height={height} >
       <StyledLayout
-        size={layoutSize}
-        flat={layout.flat}
-        spacing={layout.spacing}
-        origin={sizes[size].origin}
+        size={layoutSizeConsideringAction}
+        flat={flat}
+        spacing={spacing}
+        origin={sizeDetails.origin}
       >
         {hexagons.map((hex, i) => (
-          <Hexagon key={Number(...sizes[size].mapProps, 1) + i} q={hex.q} r={hex.r} s={hex.s} />
+          <Hexagon key={Number(...sizeDetails.mapProps, 1) + i} q={hex.q} r={hex.r} s={hex.s} />
         ))}
       </StyledLayout>
     </HexGrid>

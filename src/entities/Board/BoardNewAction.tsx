@@ -13,10 +13,9 @@ const MyRecordActionComponent = (props: ActionProps) => {
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
     console.log(record)
-    submit().then((response) => {
+    submit().then(() => {
       const helper = new ViewHelpers();
       const resourceUrl = helper.resourceUrl({ resourceId: 'Board' });
-      console.log(response, resourceUrl)
       history.push(resourceUrl)
     })
   }

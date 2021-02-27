@@ -1,28 +1,6 @@
 import styled from 'styled-components';
 import { Layout } from 'react-hexgrid-with-context-api';
 
-export const StyledBoardDetails = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .label-wrapper {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1.2rem;
-
-    h2 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-    }
-
-    .selects-wrapper {
-      display: flex;
-      justify-content: space-around;
-    }
-  }
-`;
-
 export const StyledLayout = styled(Layout)`
   g {
     fill: #3f51b5;

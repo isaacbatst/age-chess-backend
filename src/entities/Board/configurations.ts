@@ -1,3 +1,5 @@
+import { GridGenerator } from "react-hexgrid-with-context-api";
+
 const configurations: BoardConfigs = {
   hexagon: {
     layout: {
@@ -58,14 +60,14 @@ export interface Point {
   y: number;
 }
 
-interface BoardLayout {
+export interface BoardLayout {
   flat: boolean,
   spacing: number
   width: number;
   height: number;
 }
 
-interface SizeDetails {
+export interface SizeDetails {
   mapProps: number[];
   layout: Point
   origin: Point,
@@ -78,14 +80,14 @@ interface BoardSizesDetails {
 }
 
 const formats = ['hexagon', 'rectangle'] as const;
-export type BoardFormats = typeof formats[number];
+export type BoardFormat = typeof formats[number];
 
 export const sizes = ['small', 'medium', 'large'] as const;
 export type BoardSize = typeof sizes[number];
 
 export interface BoardConfig {
   layout: BoardLayout,
-  map: BoardFormats,
+  map: BoardFormat,
   sizes: BoardSizesDetails
 }
 
@@ -93,3 +95,11 @@ export interface BoardConfigs {
   hexagon: BoardConfig,
   rectangle: BoardConfig
 }
+
+export const initialSize = 'medium'
+export const initialFormat = 'hexagon';
+export const initialConfig = configurations[initialFormat];
+export const initialGenerator = GridGenerator.getGenerator(initialConfig.map);
+export const initialHexagons = initialGenerator(
+  ...initialConfig.sizes[initialSize].mapProps
+);

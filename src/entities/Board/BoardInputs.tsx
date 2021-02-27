@@ -18,7 +18,7 @@ const BoardInputs = ({
   details
 }: BoardInputsProps) => (
   <div className="label-wrapper">
-    <h2>Select grid type and configuration from dropdown.</h2>
+    {!isShowing && <h2>Select grid type and configuration from dropdown.</h2>}
     <div className="selects-wrapper">
       <select onChange={changeFormat} disabled={isShowing} defaultValue={details.format}>
         {Object.keys(configs).map((type, index) => (
