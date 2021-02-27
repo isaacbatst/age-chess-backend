@@ -47,11 +47,6 @@ const StyledWrapper = styled(BoardContainerWrapper)`
   }
 `;
 
-interface UpdateBoardProps {
-  size?: BoardSize;
-  format?: BoardFormat;
-}
-
 const BoardDetails = (props: BasePropertyComponentProps) => {
   const [board, setBoard] = useBoardState(initialFormat, initialSize);
   const { property, onChange, where, record } = props;
@@ -70,6 +65,11 @@ const BoardDetails = (props: BasePropertyComponentProps) => {
       onChange(`${property.propertyPath}.size`, board.size);
     }
   }, [board])
+
+  interface UpdateBoardProps {
+    size?: BoardSize;
+    format?: BoardFormat;
+  }
 
   function updateBoard({ format, size }: UpdateBoardProps) {
     format ??= board.format;

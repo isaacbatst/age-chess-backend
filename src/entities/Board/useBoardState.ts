@@ -1,4 +1,4 @@
-import configurations, { BoardFormat, BoardSize, initialFormat, initialSize } from "./configurations";
+import configurations, { BoardFormat, BoardSize } from "./configurations";
 import { BoardState } from "./BoardDetails";
 import { useState } from "react";
 import { GridGenerator } from "react-hexgrid-with-context-api";
